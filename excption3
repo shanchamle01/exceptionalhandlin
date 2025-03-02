@@ -1,0 +1,238 @@
+Q1). What is multithreading in python? Why is it used? Name the module used to handle threads in python
+Multithreading in Python is a popular technique that enables multiple tasks to be executed simultaneously i.e the ability of a processor to execute multiple threads simultaneously is known as multithreading.
+
+Python multithreading facilitates sharing data space and resources of multiple threads with the main thread. It allows efficient and easy communication between the threads.
+
+The goal of multithreading is to complete multiple tasks at the same time, which improves application rendering and performance.
+
+Programmers can run multiple subtasks of an application at the same time by using multithreading. It lets threads talk to the same processor and share resources like files, data, and memory and it makes it easier for the user to continue running a program even when a portion of it is blocked or too long.
+
+The module used to handle threads in python is the threading and thread module but the thread module is discontinuted in python 3 and threading module has all the methods of thread module along with additional methods
+
+Q2) Why threading module used? Write the use of the following functions
+a.)activeCount
+b.)currentThread
+c.)enumerate
+The threading module in Python is used for creating and managing threads in a multithreaded program. It provides a higher-level interface for working with threads, allowing you to create and control them effectively. Here's an explanation of the uses of the functions activeCount(), currentThread(), and enumerate() within the threading module:
+
+a.) activeCount() Function:
+
+Use: The activeCount() function is used to get the current number of active threads (Thread objects) in the current Python interpreter.
+Purpose: It helps you monitor and check how many threads are currently running or in a runnable state.
+b.) currentThread() Function:
+
+Use: The currentThread() function is used to obtain a reference to the currently executing Thread object.
+Purpose: It allows you to access information about the current thread, such as its name or other thread-specific data.
+c.) enumerate() Function:
+
+Use: The enumerate() function is used to obtain a list of all currently alive Thread objects.
+Purpose: It helps you inspect and interact with all active threads in your program.
+These functions within the threading module are essential tools for managing and monitoring threads in a multithreaded Python program, allowing you to gain control over concurrent execution and thread-related information.
+
+#Example Implementation of activecount()
+
+import threading
+
+# Define functions to be used as thread targets
+def my_function1():
+    print("Thread 1 is running")
+
+def my_function2():
+    print("Thread 2 is running")
+    
+# Create and start multiple threads
+thread1 = threading.Thread(target=my_function1)
+thread2 = threading.Thread(target=my_function2)
+thread1.start()
+thread2.start()
+
+# Get the number of active threads
+num_active_threads = threading.activeCount()
+print("Number of active threads:", num_active_threads)
+Thread 1 is running
+Thread 2 is running
+Number of active threads: 8
+/var/folders/pt/19ssfcm95454p139wbpvht400000gn/T/ipykernel_38217/4202306684.py:19: DeprecationWarning: activeCount() is deprecated, use active_count() instead
+  num_active_threads = threading.activeCount()
+#Example Implementation of currentThread()
+import threading
+
+def print_current_thread_name():
+    current_thread = threading.currentThread()
+    print("Current thread name:", current_thread.name)
+
+thread1 = threading.Thread(target=print_current_thread_name, name="Thread 1")
+thread2 = threading.Thread(target=print_current_thread_name, name="Thread 2")
+
+thread1.start()
+thread2.start()
+Current thread name: Thread 1
+Current thread name: Thread 2
+/var/folders/pt/19ssfcm95454p139wbpvht400000gn/T/ipykernel_38217/439700827.py:5: DeprecationWarning: currentThread() is deprecated, use current_thread() instead
+  current_thread = threading.currentThread()
+#Example Implementation of enumerate()
+import threading
+
+def my_function():
+    pass
+
+thread1 = threading.Thread(target=my_function)
+thread2 = threading.Thread(target=my_function)
+
+thread1.start()
+thread2.start()
+
+# Get a list of all currently active threads
+active_threads = threading.enumerate()
+for thread in active_threads:
+    print("Active thread:", thread.name)
+Active thread: MainThread
+Active thread: IOPub
+Active thread: Heartbeat
+Active thread: Thread-3 (_watch_pipe_fd)
+Active thread: Thread-4 (_watch_pipe_fd)
+Active thread: Control
+Active thread: IPythonHistorySavingThread
+Active thread: Thread-2
+Q3. Explain the following functions
+run()
+start()
+join()
+isAlive()
+The functions run(), start(), join(), and isAlive() are related to working with threads in a multithreaded programming environment, often associated with languages like Python that provide support for multithreading. These functions are commonly used when working with threads to control their execution and query their states.
+
+run():
+
+The run() method is not typically directly invoked by the programmer when working with threads. Instead, it is a method that can be overridden in a custom class that extends the Thread class (or implements the Runnable interface in Java). The custom class represents the thread's behavior.
+When the thread is started using the start() method (explained below), the run() method of the custom class is automatically executed in the new thread. It contains the code that defines the task or behavior of the thread.
+start():
+
+The start() method is used to begin the execution of a thread.
+It allocates system resources for the new thread.
+It invokes the run() method of the thread's target, effectively starting the execution of the thread.
+It allows the thread to run concurrently with other threads.
+It's important to note that you should call start() on a thread object, not directly on the Thread class.
+join():
+
+The join() method is used to wait for a thread to complete its execution. When you call join() on a thread, the program will block (pause) until the thread being joined finishes its task.
+This method is often used to ensure that the main program doesn't proceed further until the thread has completed its work. It's useful for synchronizing the execution of threads.
+isAlive():
+
+The isAlive() method is used to check whether a thread is currently running or has completed its execution. It returns True if the thread is alive (running) and False if it has terminated.
+This method can be helpful for monitoring the state of threads and making decisions based on their status.
+These functions are essential for managing and controlling the execution of threads in multithreaded programs, enabling concurrent execution of tasks and synchronization when necessary.
+
+#Example Implementation of run()
+import threading
+
+class MyThread(threading.Thread):
+    def run(self):
+        # Code to be executed in the thread
+        print("Thread is running")
+
+my_thread = MyThread()
+my_thread.start()  # This starts the thread and invokes the run() method.
+Thread is running
+#Example Implementation of start()
+import threading
+
+def thread_function():
+    print("Thread is running")
+
+my_thread = threading.Thread(target=thread_function)
+my_thread.start()  # This starts the thread.
+Thread is running
+#Example Implementation of join()
+import threading
+
+def thread_function():
+    print("Thread is running")
+
+my_thread = threading.Thread(target=thread_function)
+my_thread.start()  # Start the thread
+my_thread.join()   # Wait for the thread to finish before proceeding
+print("Main program continues")
+Thread is running
+Main program continues
+#Example Implementation of isAlive()
+import threading
+
+def thread_function():
+    print("Thread is running")
+
+my_thread = threading.Thread(target=thread_function)
+my_thread.start()  # Start the thread
+print(my_thread.is_alive())  # Check if the thread is alive (True)
+my_thread.join()   # Wait for the thread to finish
+print(my_thread.is_alive())  # Check if the thread is alive (False)
+Thread is runningTrue
+
+False
+Q4. Write a python program to create two threads. Thread one must print the list of squares and thread two must print the list of cubes
+import threading 
+
+def print_square(num):
+    for i in num:
+        sq=i**2
+        print(f"Square of the {i} is {sq} ")
+        
+def print_cube(num):
+    for i in num:
+        cube=i**3
+        print(f"Cube of the {i} is {cube} ")
+        
+list_num = [1,2,3,4,5]
+
+thread1=threading.Thread(target=print_square,args=(list_num,))
+thread1.start()
+
+thread2=threading.Thread(target=print_cube,args=(list_num,))
+thread2.start()
+        
+    
+thread1.join()
+thread2.join()
+
+print("Program completed")
+Square of the 1 is 1 
+Square of the 2 is 4 
+Square of the 3 is 9 
+Square of the 4 is 16 
+Square of the 5 is 25 
+Cube of the 1 is 1 
+Cube of the 2 is 8 
+Cube of the 3 is 27 
+Cube of the 4 is 64 
+Cube of the 5 is 125 
+Program completed
+Q5. State advantages and disadvantages of multithreading
+Advantages of Multithreading:
+Improved Performance: Enables concurrent execution, improving application speed.
+Responsiveness: Maintains a responsive user interface during background tasks.
+Resource Sharing: Efficiently shares resources among threads.
+Scalability: Enhances server applications' ability to handle multiple clients.
+Modularization: Organizes code into separate threads for readability.
+Disadvantages of Multithreading:
+Complexity: Adds complexity to code design and debugging.
+Synchronization Overhead: Synchronization reduces performance gains.
+Race Conditions: Simultaneous data access can lead to unpredictable behavior.
+Deadlocks: Threads waiting for each other can freeze the program.
+Resource Contention: Competition for resources may degrade performance.
+Q6. Explain Deadlock and Race Conditions
+Deadlock:
+Deadlock is a situation where two or more threads are blocked indefinitely, each waiting for a resource that is held by another thread within the same set. In other words, it is a state where two or more threads are unable to proceed because each is waiting for a resource that can only be released by another waiting thread. Deadlocks can occur when the following four conditions hold simultaneously:
+
+Mutual Exclusion: At least one resource must be held in a non-sharable mode.
+Hold and Wait: A process must be holding at least one resource and waiting for another resource.
+No Preemption: Resources cannot be forcefully taken away from a thread; they must be released voluntarily.
+Circular Wait: A circular chain of two or more threads, where each thread is waiting for a resource held by the next thread in the chain.
+Deadlocks can be quite challenging to debug and resolve since they require careful analysis and coordination of resource allocation to avoid the circular wait condition.
+
+Race Condition:
+A race condition occurs when two or more threads access shared data or resources simultaneously, resulting in unpredictable behavior or incorrect results. It happens when the correctness of the computation depends on the relative timing or interleaving of events between threads. Race conditions can occur due to the lack of proper synchronization mechanisms and can lead to data inconsistency, integrity issues, or program crashes.
+
+For example, consider two threads that are concurrently incrementing a shared counter variable. If the threads do not synchronize their access to the counter using locks or other synchronization primitives, a race condition can occur. The order in which the threads execute their increments and the interleaving of their operations can lead to incorrect results, such as lost updates or overwriting each other's changes.
+
+To prevent race conditions, proper synchronization techniques like locks, mutexes, or atomic operations should be used to ensure exclusive access to shared resources and maintain data consistency.
+
+Both deadlocks and race conditions are common concurrency issues that can occur in multithreaded or parallel programs. Understanding and addressing these issues is crucial for developing robust and correct concurrent software.
