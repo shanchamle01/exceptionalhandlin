@@ -1,0 +1,158 @@
+Q1)What is an Exception in python?Write the differences between Exception and syntax errors
+Errors are the problems in a program due to which the program will stop the execution. On the other hand, exceptions are raised when some internal events occur which changes the normal flow of the program.
+Two types of Error occurs in python.
+1)Syntax errors : When the proper syntax of the language is not followed then a syntax error is thrown.
+2)Logical errors (Exceptions) : When in the runtime an error that occurs after passing the syntax test is called exception or logical type.
+#syntax error
+a = 'print('
+b = '"Hello)"'
+try:
+    exec(a+b) #this will try to execute print("Hello)" <= note the wrong syntax
+except SyntaxError:
+    print('Well that didn\'t work')
+Well that didn't work
+#logical error
+a= 12
+
+try :
+    print(a/0)
+
+except ZeroDivisionError as e:
+    print("Error : ",e)
+    Error :  division by zero
+Q2) What happens when an exception is not handled ? Explain with an example
+When an exception is not handled, it propagates through the program's execution stack until it either reaches an appropriate exception handler or terminates the program if no handler is found. This process is known as "unhandled exception" or "exception propagation."
+def divide_numbers(a, b):
+    try:
+        result = a / b
+        print("The result of the division is:", result)
+    except ZeroDivisionError as e:
+        print("Error: Division by zero is not allowed.",e)
+
+# Example 1: Exception is handled
+divide_numbers(20, 5)  
+# Output: The result of the division is: 5.0
+
+
+# Example 2: Exception is not handled
+divide_numbers(30, 0)
+The result of the division is: 4.0
+Error: Division by zero is not allowed. division by zero
+Q3) Which python statements are used to catch and handle Exceptions?Explain with an example
+Exceptions can be caught and handled in python using the try ,except and finally statements. The try block is used to enclose the code that may raise an exception, and the except block is used to specify the handling of the exception and the finally block executes no matter if the exception is caught or not.
+def add(a,b):
+    try:
+        add = a+b
+        print("The result : ",add)     
+    except Exception as e:
+        print("Warning error has occured ",e)
+    finally:
+        print("The code is executed successfully")
+        
+# Example 1: Exception is handled
+add(20, 5) 
+
+# Example 1: Exception is handled
+add(20, "hsj") 
+The result :  25
+The code is executed successfully
+Warning error has occured  unsupported operand type(s) for +: 'int' and 'str'
+The code is executed successfully
+Q4) Explain with example:
+try and else
+finally
+raise
+#try and else
+try :
+    f = open("test.txt",'w')
+    f.write("this is my message")
+    
+except Exception as e:
+    print("there is some issue with my code",e)
+    
+else:
+    f.close()
+    print("this block will execute once try block will execute itself without an exception")
+this block will execute once try block will execute itself without an exception
+#finally
+try :
+    f = open("test.txt",'w')
+    f.write("this is my message")
+    
+except Exception as e:
+    print("there is some issue with my code",e)
+    
+else:
+    f.close()
+    print("this block will execute once try block will execute itself without an exception")
+    
+finally:
+    print("this block will always execute no matter what")
+this block will execute once try block will execute itself without an exception
+this block will always execute no matter what
+#raise
+class validateage(Exception):
+    def __init__(self,msg):
+        self.msg=msg
+        
+
+def validate_age(age):
+    if age<0 :
+        raise validateage("age cant be less than 0")
+    elif age>200:
+        raise validateage("age is too big")
+    else:
+        raise validateage("age is valid")
+
+try:
+    age= int(input("Enter your age"))
+    validate_age(age)
+except validateage as e:
+    print(e)
+age cant be less than 0
+Q5) What are custom exceptions ? Why do we need custom Exceptions? Explain with example?
+Custom exceptions, also known as user-defined exceptions, are exceptions that you create in your Python code to represent specific error conditions or exceptional situations that are not covered by the built-in exceptions provided by Python.
+->Provide more descriptive error messages.
+->Enhance code modularity and organization.
+->Enable clearer and explicit exception handling.
+->Offer extensibility and flexibility in defining exception hierarchies.
+->Facilitate domain-specific error handling.
+class validateage(Exception):
+    def __init__(self,msg):
+        self.msg=msg
+        
+
+def validate_age(age):
+    if age<0 :
+        raise validateage("age cant be less than 0")
+    elif age>200:
+        raise validateage("age is too big")
+    else:
+        raise validateage("age is valid")
+
+try: age= int(input("Enter your age"))
+    validate_age(age)
+except validateage as e:
+    print(e)
+age is too big
+Q6)Create a custom exception class .Use this to handle Exception
+class addition_class(Exception):
+    def __init__(self,msg):
+        self.msg = msg
+        
+
+def add_opperation(a,b):
+    if type(a) != type(b):
+        raise addition_class("Operation cant be performed type of variables is diiferent")
+    else:
+        r=a+b
+        raise addition_class(f"Result is : {r} ")
+        
+
+try:add_opperation("str",12)
+except addition_class as e:
+    print(e)
+finally:
+    print("Program complteted its execution")
+Operation cant be performed type of variables is diiferent
+Program complteted its execution
