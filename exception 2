@@ -1,0 +1,422 @@
+Q1. Explain why we have to use the Exception class while creating a Custom Exception.
+Note: Here Exception class refers to the base class for all the exceptions.
+In object-oriented programming, including in languages like Python, custom exceptions can be created by defining new classes that inherit from the base Exception class. The Exception class serves as the parent class or base class for all built-in exceptions in the language, and it provides a standard structure and behavior for handling and propagating exceptions.
+There are a few reasons why we use the Exception class as the base class for custom exceptions:
+1. Consistency and familiarity: By inheriting from the Exception class, custom exceptions follow the same structure and behavior as built-in exceptions in the language. This consistency makes it easier for developers to understand and work with custom exceptions, as they can leverage their existing knowledge and experience with handling exceptions.
+2. Standard exception handling: The Exception class provides a set of methods and attributes that are commonly used for exception handling. For example, custom exceptions can utilize the try-except block to catch and handle specific exceptions, and they can access attributes like the error message associated with the exception. By inheriting from the Exception class, custom exceptions automatically inherit these features, making it simpler to handle and process them consistently.
+3. Exception hierarchy and organization: The Exception class establishes a hierarchy of exceptions, with more specific exceptions inheriting from more general ones. This hierarchy allows for better organization and categorization of exceptions based on their types and behaviors. By creating custom exceptions that inherit from the Exception class, we can place them in the appropriate part of the exception hierarchy, making it easier to identify and handle different types of exceptions based on their relationships.
+4. Interoperability and compatibility: By using the Exception class as the base class for custom exceptions, we ensure compatibility and interoperability with other code and libraries that expect exceptions to follow the standard exception hierarchy. This allows custom exceptions to be seamlessly integrated into existing exception handling mechanisms and frameworks.
+By using the Exception class as the base class for custom exceptions provides consistency, standard exception handling mechanisms, a hierarchical organization of exceptions, and compatibility with existing code. It promotes good software design and facilitates effective exception handling in the language.
+Q2. Write a python program to print Python Exception Hierarchy.
+# import inspect module
+import inspect
+
+# our treeClass function
+def treeClass(cls, ind = 0):
+	
+	# print name of the class
+	print ('-' * ind, cls.__name__)
+	for i in cls.__subclasses__():
+		treeClass(i, ind + 3)
+
+print("Hierarchy for Built-in exceptions is : ")
+
+# inspect.getmro() Return a tuple
+# of class cls’s base classes.
+
+# building a tree hierarchy
+inspect.getclasstree(inspect.getmro(BaseException))
+
+# function call
+treeClass(BaseException)
+Hierarchy for Built-in exceptions is : 
+ BaseException
+--- Exception
+------ TypeError
+--------- FloatOperation
+--------- MultipartConversionError
+------ StopAsyncIteration
+------ StopIteration
+------ ImportError
+--------- ModuleNotFoundError
+--------- ZipImportError
+------ OSError
+--------- ConnectionError
+------------ BrokenPipeError
+------------ ConnectionAbortedError
+------------ ConnectionRefusedError
+------------ ConnectionResetError
+--------------- RemoteDisconnected
+--------- BlockingIOError
+--------- ChildProcessError
+--------- FileExistsError
+--------- FileNotFoundError
+--------- IsADirectoryError
+--------- NotADirectoryError
+--------- InterruptedError
+------------ InterruptedSystemCall
+--------- PermissionError
+--------- ProcessLookupError
+--------- TimeoutError
+--------- UnsupportedOperation
+--------- itimer_error
+--------- herror
+--------- gaierror
+--------- SSLError
+------------ SSLCertVerificationError
+------------ SSLZeroReturnError
+------------ SSLWantWriteError
+------------ SSLWantReadError
+------------ SSLSyscallError
+------------ SSLEOFError
+--------- Error
+------------ SameFileError
+--------- SpecialFileError
+--------- ExecError
+--------- ReadError
+------------ HTTPError
+------------ ContentTooShortError
+--------- BadGzipFile
+------ EOFError
+--------- IncompleteReadError
+------ RuntimeError
+--------- RecursionError
+--------- NotImplementedError
+------------ ZMQVersionError
+------------ StdinNotImplementedError
+--------- _DeadlockError
+--------- BrokenBarrierError
+--------- BrokenExecutor
+------------ BrokenThreadPool
+--------- SendfileNotAvailableError
+--------- ExtractionError
+--------- VariableError
+------ NameError
+--------- UnboundLocalError
+------ AttributeError
+--------- FrozenInstanceError
+------ SyntaxError
+--------- IndentationError
+------------ TabError
+------ LookupError
+--------- IndexError
+--------- KeyError
+------------ NoSuchKernel
+------------ UnknownBackend
+--------- CodecRegistryError
+------ ValueError
+--------- UnicodeError
+------------ UnicodeEncodeError
+------------ UnicodeDecodeError
+------------ UnicodeTranslateError
+--------- UnsupportedOperation
+--------- JSONDecodeError
+--------- SSLCertVerificationError
+--------- Error
+--------- UnsupportedDigestmodError
+--------- IllegalMonthError
+--------- IllegalWeekdayError
+--------- ParserError
+--------- ClassNotFound
+--------- ClipboardEmpty
+--------- MessageDefect
+------------ NoBoundaryInMultipartDefect
+------------ StartBoundaryNotFoundDefect
+------------ CloseBoundaryNotFoundDefect
+------------ FirstHeaderLineIsContinuationDefect
+------------ MisplacedEnvelopeHeaderDefect
+------------ MissingHeaderBodySeparatorDefect
+------------ MultipartInvariantViolationDefect
+------------ InvalidMultipartContentTransferEncodingDefect
+------------ UndecodableBytesDefect
+------------ InvalidBase64PaddingDefect
+------------ InvalidBase64CharactersDefect
+------------ InvalidBase64LengthDefect
+------------ HeaderDefect
+--------------- InvalidHeaderDefect
+--------------- HeaderMissingRequiredValue
+--------------- NonPrintableDefect
+--------------- ObsoleteHeaderDefect
+--------------- NonASCIILocalPartDefect
+--------------- InvalidDateDefect
+--------- MacroToEdit
+--------- InvalidFileException
+--------- UnequalIterablesError
+--------- InvalidVersion
+--------- _InvalidELFFileHeader
+--------- InvalidWheelFilename
+--------- InvalidSdistFilename
+--------- InvalidSpecifier
+--------- InvalidMarker
+--------- UndefinedComparison
+--------- UndefinedEnvironmentName
+--------- InvalidRequirement
+------------ RequirementParseError
+--------- InvalidVersion
+------ AssertionError
+------ ArithmeticError
+--------- FloatingPointError
+--------- OverflowError
+--------- ZeroDivisionError
+------------ DivisionByZero
+------------ DivisionUndefined
+--------- DecimalException
+------------ Clamped
+------------ Rounded
+--------------- Underflow
+--------------- Overflow
+------------ Inexact
+--------------- Underflow
+--------------- Overflow
+------------ Subnormal
+--------------- Underflow
+------------ DivisionByZero
+------------ FloatOperation
+------------ InvalidOperation
+--------------- ConversionSyntax
+--------------- DivisionImpossible
+--------------- DivisionUndefined
+--------------- InvalidContext
+------ SystemError
+--------- CodecRegistryError
+------ ReferenceError
+------ MemoryError
+------ BufferError
+------ Warning
+--------- UserWarning
+------------ GetPassWarning
+------------ FormatterWarning
+--------- EncodingWarning
+--------- DeprecationWarning
+------------ ProvisionalWarning
+--------- PendingDeprecationWarning
+--------- SyntaxWarning
+--------- RuntimeWarning
+------------ ProactorSelectorThreadWarning
+------------ UnknownTimezoneWarning
+------------ PEP440Warning
+--------- FutureWarning
+------------ ProvisionalCompleterWarning
+--------- ImportWarning
+--------- UnicodeWarning
+--------- BytesWarning
+--------- ResourceWarning
+--------- DeprecatedTzFormatWarning
+--------- PkgResourcesDeprecationWarning
+------ _OptionError
+------ _Error
+------ error
+------ Verbose
+------ Error
+------ SubprocessError
+--------- CalledProcessError
+--------- TimeoutExpired
+------ TokenError
+------ StopTokenizing
+------ ClassFoundException
+------ EndOfBlock
+------ TraitError
+------ Error
+------ Error
+--------- CancelledError
+--------- TimeoutError
+--------- InvalidStateError
+------ _GiveupOnSendfile
+------ error
+------ Incomplete
+------ TimeoutError
+------ InvalidStateError
+------ LimitOverrunError
+------ QueueEmpty
+------ QueueFull
+------ Empty
+------ Full
+------ ArgumentError
+------ ZMQBaseError
+--------- ZMQError
+------------ ContextTerminated
+------------ Again
+------------ InterruptedSystemCall
+--------- ZMQBindError
+--------- NotDone
+------ PickleError
+--------- PicklingError
+--------- UnpicklingError
+------ _Stop
+------ ArgumentError
+------ ArgumentTypeError
+------ ConfigError
+--------- ConfigLoaderError
+------------ ArgumentError
+--------- ConfigFileNotFound
+------ ConfigurableError
+--------- MultipleInstanceError
+------ ApplicationError
+------ error
+------ TimeoutError
+------ error
+------ ReturnValueIgnoredError
+------ KeyReuseError
+------ UnknownKeyError
+------ LeakedCallbackError
+------ BadYieldError
+------ ReturnValueIgnoredError
+------ Return
+------ InvalidPortNumber
+------ error
+------ LZMAError
+------ RegistryError
+------ _GiveupOnFastCopy
+------ Error
+--------- NoSectionError
+--------- DuplicateSectionError
+--------- DuplicateOptionError
+--------- NoOptionError
+--------- InterpolationError
+------------ InterpolationMissingOptionError
+------------ InterpolationSyntaxError
+------------ InterpolationDepthError
+--------- ParsingError
+------------ MissingSectionHeaderError
+------ NoIPAddresses
+----- BadZipFile
+------ LargeZipFile
+------ BadEntryPoint
+------ NoSuchEntryPoint
+------ DuplicateKernelError
+------ ErrorDuringImport
+------ NotOneValueFound
+------ CannotEval
+------ OptionError
+------ BdbQuit
+------ Restart
+------ ExceptionPexpect
+--------- EOF
+--------- TIMEOUT
+------ PtyProcessError
+------ FindCmdError
+------ HomeDirError
+------ ProfileDirError
+------ IPythonCoreError
+--------- TryNext
+--------- UsageError
+--------- StdinNotImplementedError
+------ InputRejected
+------ GetoptError
+------ ErrorToken
+------ PrefilterError
+------ AliasError
+--------- InvalidAliasError
+------ Error
+--------- InterfaceError
+Q3. What errors are defined in the ArithmeticError class? Explain any two with an example.
+Arithmentic Error is the error that occurs during numeric calculations
+OverFlowError
+ZeroDivisionError
+FloatingPointError
+#OverFlowError
+j = 5.0
+
+try:
+    for i in range(1, 1000):
+        j = j**i
+except ArithmeticError as e:
+    print(f"{e}, {e.__class__}")
+    (34, 'Numerical result out of range'), <class 'OverflowError'>
+#ZeroDivisionError
+try:
+    1/0
+except ArithmeticError as e:
+    print(f"{e}, {e.__class__}")
+division by zero, <class 'ZeroDivisionError'>
+Q4. Why LookupError class is used? Explain with an example KeyError and IndexError.
+The LookupError exception forms the base class for all the exceptions that are raised when an index or a key is not found for a sequence or dictionary.
+#KeyError
+student_info = {'name': 'Lenin Mishra',
+                'age': 28,
+                'phone_no': 98324214124}
+user_input = input('What info do you want of student ')
+
+try:
+    print(f'{user_input} is {student_info[user_input]}')
+except LookupError as e:
+    print(f'{e}, {e.__class__}')
+    'location', <class 'KeyError'>
+#IndexError
+x = [1, 2, 3, 4]
+try:
+    print(x[6])
+except LookupError as e:
+    print(f"{e}, {e.__class__}")
+list index out of range, <class 'IndexError'>
+Q5. Explain ImportError. What is ModuleNotFoundError?
+the import statement encounters an issue because the specified module does not exist. The difference lies in the type of exception that is raised: ImportError is a more general exception, while ModuleNotFoundError is a specific exception that inherits from ImportError and includes additional information about the missing module.
+try:
+    import adadnnfja
+except ImportError as e:
+    print(f"Import Error : {e}")
+Import Error : No module named 'adadnnfja'
+try:
+    import dani
+except ModuleNotFoundError as e:
+    print(f"Module Not Found Error : {e}")
+Module Not Found Error : No module named 'dani'
+Q6. List down some best practices for exception handling in python.
+Always use a specific Exception
+Print a valid message
+Always try to log
+Always try to avoid multiple exception handling
+prepare a proper documentation<>
+#use always specific exception
+try:
+    10/0
+except Exception as e:
+    print(e)
+division by zero
+try:
+    10/0
+except ZeroDivisionError as e:
+    print(e)
+division by zero
+#print always a valid message
+
+try:
+    10/0
+except ZeroDivisionError as e:
+    print("This is my Zero division error that i am handling",e)
+This is my Zero division error that i am handling division by zero
+#always try to log
+
+import logging
+logging.basicConfig(filename = "error.log",level=logging.ERROR ,format = '%(asctime)s %(name)s %(levelname)s %(message)s' )
+
+try:
+    10/0
+    except ZeroDivisionError as e:
+    logging.error("This is my Zero division error that i am handling {} ".format(e))
+#always try to avoid multiple exception handling
+
+import logging
+logging.basicConfig(filename = "error.log",level=logging.ERROR ,format = '%(asctime)s %(name)s %(levelname)s %(message)s' )
+
+try:
+    10/0
+    
+except FileNotFoundError as e:
+    logging.error("This is my File not found error that i am handling {} ".format(e))
+
+except AttributeError as e:
+    logging.error("This is my attribute error that i am handling {} ".format(e))
+    
+except ZeroDivisionError as e:
+    logging.error("This is my Zero division error that i am handling {} ".format(e))
+#cleanup all the resources
+
+try:
+    with open("test.txt",'w') as f:
+        f.write("this is my messages to file")
+except FileNotFoundError as e:
+    logging.error("This is my File not found error that i am handling {} ".format(e))
+finally:
+    f.close()
+	# iterating through subclasses
