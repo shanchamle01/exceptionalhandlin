@@ -1,0 +1,90 @@
+Q1. What is multiprocessing in python? Why is it useful?
+Multiprocessing refers to the ability of a system to support more than one processor at the same time. Applications in a multiprocessing system are broken to smaller routines that run independently. The operating system allocates these threads to the processors improving performance of the system.
+Consider a computer system with a single processor. If it is assigned several processes at the same time, it will have to interrupt each task and switch briefly to another, to keep all of the processes going.
+This situation is just like a chef working in a kitchen alone. He has to do several tasks like baking, stirring, kneading dough, etc.
+So the gist is that: The more tasks you must do at once, the more difficult it gets to keep track of them all, and keeping the timing right becomes more of a challenge.
+This is where the concept of multiprocessing arises!
+A multiprocessing system can have:
+multiprocessor, i.e. a computer with more than one central processor.
+multi-core processor, i.e. a single computing component with two or more independent actual processing units (called “cores”).
+Here, the CPU can easily executes several tasks at once, with each task using its own processor.
+It is just like the chef in last situation being assisted by his assistants. Now, they can divide the tasks among themselves and chef doesn’t need to switch between his tasks.
+Q2. What are the differences between multiprocessing and multithreading?
+MultiProcessing:
+In Multiprocessing, CPUs are added for increasing computing power.
+In Multiprocessing, Many processes are executed simultaneously.
+Multiprocessing are classified into Symmetric and Asymmetric.
+In Multiprocessing, Process creation is a time-consuming process.
+In Multiprocessing, every process owned a separate address space.
+
+MultiThreading:
+While In Multithreading, many threads are created of a single process for increasing computing power.
+While in multithreading, many threads of a process are executed simultaneously.
+While Multithreading is not classified in any categories.
+While in Multithreading, process creation is according to economical.
+While in Multithreading, a common address space is shared by all the threads.
+
+Q3. Write a python code to create a process using the multiprocessing module.
+import multiprocessing
+
+def test():
+    print("This is a multiprocessing prog")
+    
+if __name__ == "__main__":
+    m=multiprocessing.Process(target=test)
+    print("this is my main program")
+    m.start()
+    m.join()
+this is my main program
+This is a multiprocessing prog
+Q4. What is a multiprocessing pool in python? Why is it used?
+Python multiprocessing Pool can be used for parallel execution of a function across multiple input values, distributing the input data across processes (data parallelism).
+def square(n):
+    return n**2
+
+if __name__ == "__main__":
+    with multiprocessing.Pool(processes=5) as p:
+        out = p.map(square,[2,3,5,6,2,5,6,423])
+        print(out)
+[4, 9, 25, 36, 4, 25, 36, 178929]
+Q5. How can we create a pool of worker processes in python using the multiprocessing module?
+import multiprocessing
+
+def worker_function(task):
+    result = task * 2
+    return result
+
+if __name__ == '__main__':
+    num_workers = 4 
+    pool = multiprocessing.Pool(processes=num_workers)
+
+
+    tasks = [1, 2, 3, 4, 5]
+
+
+    results = pool.map(worker_function, tasks)
+
+    pool.close()
+    pool.join()
+
+    print(results)
+[2, 4, 6, 8, 10]
+Q6. Write a python program to create 4 processes, each process should print a different number using the multiprocessing module in python.
+import multiprocessing
+
+def print_number(number):
+    print(f"Process {number}: I am printing {number}.")
+
+if __name__ == '__main__':
+    processes = []
+    for i in range(4):
+        process = multiprocessing.Process(target=print_number, args=(i+1,))
+        processes.append(process)
+        process.start()
+
+    for process in processes:
+        process.join()
+Process 1: I am printing 1.
+Process 2: I am printing 2.
+Process 3: I am printing 3.
+Process 4: I am printing 4.
